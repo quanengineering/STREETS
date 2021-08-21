@@ -3,3 +3,6 @@ __pycache__/
 .DS_Store
 trafficdata/
 .idea/
+data/roadmasks/
+data/trafficstate/
+data/vehicleannotations/
