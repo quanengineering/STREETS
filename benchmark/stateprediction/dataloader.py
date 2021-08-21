@@ -31,7 +31,7 @@ class FVQDataset(Dataset):
         for name in self.image_names:
             view = name.split('.jpg-')[1].replace('.jpg', '')
             year = name.split('-')[0]
-            roadmask_path = os.path.join('/mnt/data0-nfs/shared-datasets/STREETS/roadmasks/', year, view+'.png')
+            roadmask_path = os.path.join('../../data/roadmasks/', year, view+'.png')
             self.roadmask_dict[view] = (imread(roadmask_path)/MASK_GAIN).astype(np.uint8)
     def __len__(self):
         return len(self.labels)
