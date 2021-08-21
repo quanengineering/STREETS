@@ -12,7 +12,7 @@ from dataloader import FVQDataset
 from tqdm import tqdm
 
 MODEL_PATH = 'logs'
-DEVICE = 'cuda:0'
+DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 P = 0.8
 def train_clf(clf, n_epochs, batch_size, lr):
     path = '../../data/trafficstate'
