@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+
+fork
+partition vehiclecounting {
+:load pre-train weight from mask_rcnn_coco.h5
+OR load retrained weight;
+:load vehicle labels from vehicle-annotations.json
+(labeled manually by VGG Image Annotator
+https://www.robots.ox.ac.uk/~vgg/software/via/via_demo.html);
+:split images into train/test by using train-val-split.json;
+:load raw images (at least 720 x 480 pixels)
+that have been annotated
+<img:overview/2018-8-27-18-30.jpg{scale=0.2}>;
+repeat
+:extract_json_points_polygons from vehicle-annotations.json;
+:load respective road mask;
+:perform background subtraction;
+:detect number of vehicles;
+repeat while (more images?) is (yes)
+->no;
+:store results;
+}
+
+fork again
+
+partition stateprediction {
+:load traffic_state_labels.json
+:load raw images (at least 720 x 480 pixels)
+that have been annotated
+<img:overview/2018-8-27-18-30.jpg{scale=0.2}>;
+repeat
+:predict state;
+repeat while (more images?) is (yes)
+->no;
+:store results;
+}
+
+end fork
+
+
+stop
+
+@enduml
